@@ -11,13 +11,11 @@
       "src": "/api/kalkulator",
       "dest": "api/kalkulator.js"
     },
-    {
-      "src": "/public/index",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
   ]
+  {
+  "rewrites": [
+    { "source": "/", "destination": "/public/index.html" },
+    { "source": "/(.*)", "destination": "/public/$1" }
+  ]
+}
 }
