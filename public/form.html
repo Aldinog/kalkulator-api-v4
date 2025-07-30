@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tools Signal GFX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .card {
+      border-radius: 1rem;
+    }
+    .form-select, .form-control {
+      border-radius: 0.5rem;
+    }
+    #hasil {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Tools Share Signal GFX</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarContent" aria-controls="navbarContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<!-- NAVBAR END -->
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h4 class="mb-0">Kalkulator Pips Forex</h4>
+        </div>
+        <div class="card-body">
+          <form id="kalkulator-form">
+            <div class="mb-3">
+              <label for="pair" class="form-label">Pair</label>
+              <select class="form-select" id="pair" name="pair" required>
+                <option selected disabled>-- Pilih Pair --</option>
+                <option value="XAUUSD">XAUUSD</option>
+                <option value="EURUSD">EURUSD</option>
+                <option value="GBPUSD">GBPUSD</option>
+                <option value="AUDUSD">AUDUSD</option>
+                <option value="USDCAD">USDCAD</option>
+                <option value="USDCHF">USDCHF</option>
+                <option value="NZDUSD">NZDUSD</option>
+                <option value="EURGBP">EURGBP</option>
+                <option value="EURCAD">EURCAD</option>
+                <option value="EURCHF">EURCHF</option>
+                <option value="GBPCHF">GBPCHF</option>
+                <option value="AUDCAD">AUDCAD</option>
+                <option value="AUDNZD">AUDNZD</option>
+                <option value="USDJPY">USDJPY</option>
+                <option value="EURJPY">EURJPY</option>
+                <option value="GBPJPY">GBPJPY</option>
+                <option value="AUDJPY">AUDJPY</option>
+                <option value="NZDJPY">NZDJPY</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="op" class="form-label">Posisi</label>
+              <select class="form-select" id="op" name="op" required>
+                <option selected disabled>-- Pilih Posisi --</option>
+                <option value="buy">Buy</option>
+                <option value="sell">Sell</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="harga" class="form-label">Harga Open Posisi</label>
+              <input type="number" step="any" class="form-control" id="harga" name="harga"
+                     placeholder="Contoh: 3350.39" required>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Hitung & Kirim ke Telegram</button>
+          </form>
+
+          <div id="hasil" class="alert alert-info mt-4 d-none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Kalkulasi Logic -->
+<script>
+  const form = document.getElementById("kalkulator-form");
+  const hasilDiv = document.getElementById("hasil");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const pair = document.getElementById("pair").value;
+    const op = document.getElementById("op").value;
+    const harga = document.getElementById("harga").value;
+
+    try {
+      const res = await fetch('/kalkulator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pair, op, harga })
+      });
+
+      const data = await res.json();
+      hasilDiv.textContent = data.hasil || "Hasil tidak tersedia.";
+      hasilDiv.classList.remove("d-none");
+    } catch (err) {
+      console.error("Error:", err);
+      hasilDiv.textContent = "Terjadi kesalahan saat mengirim data.";
+      hasilDiv.classList.remove("d-none");
+      hasilDiv.classList.replace("alert-info", "alert-danger");
+    }
+  });
+</script>
+
+</body>
+</html>
