@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    return res.status(405).json({ error: 'Api menyala, tetapi kamu menggunakan method selain POST' });
   }
 
   const { pair, op, harga } = req.body;
