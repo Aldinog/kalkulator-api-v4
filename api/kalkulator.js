@@ -2,14 +2,23 @@ const { calculatePips, sendTelegramMessage } = require('../utils.js');
 
 module.exports = async (req, res) => {
   // Tambahkan header CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://web-aplikation-git-main-aldino-satrias-projects.vercel.app/');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+ const allowedOrigins = [
+  'https://web-aplikation.vercel.app',
+  'https://web-aplikation-git-main-aldino-satrias-projects.vercel.app'
+];
+
+const origin = req.headers.origin;
+if (allowedOrigins.includes(origin)) {
+  res.setHeader('Access-Control-Allow-Origin', origin);
+}
 
   // Tangani preflight OPTIONS request
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+if (req.method === 'OPTIONS') {
+  return res.status(200).end();
+}
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Api menyala, tetapi kamu menggunakan method selain POST' });
