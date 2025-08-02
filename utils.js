@@ -48,8 +48,8 @@ let tp2Format = tp2.toFixed(decimalPlaces);
 let tp3Format = tp3.toFixed(decimalPlaces);
 let slFormat = sl.toFixed(decimalPlaces);
 
-  const message = `📈 Pair: ${pair} \n📌 ${op} NOW\n
-  Zona Entry: ${format} - ${hFormat}\n❌ SL: ${slFormat}\n🎯 TP 1: ${tp1Format}\n🎯 TP 2: ${tp2Format}\n🎯 TP 3: ${tp3Format}`;
+  const message = `📈 Pair: ${pair} \n📌 ${op.toUpperCase()} NOW 🔥\n
+  Zona Entry: ${format} - ${hFormat}\n❌ SL: ${slFormat}\n🎯 TP 1: ${tp1Format}\n🎯 TP 2: ${tp2Format}\n🎯 TP 3: ${tp3Format} \n\n NOTE:\n ⚠️Harap selalu gunakan money management LOW RISK/BIJAK⚠️`;
 
   return { formatted: message, message };
 }
@@ -77,6 +77,7 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
