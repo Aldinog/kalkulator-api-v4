@@ -39,7 +39,7 @@ let tp1 = op === 'buy' ? harga + 200 * pip : harga - 200 * pip;
 let tp2 = op === 'buy' ? harga + 600 * pip : harga - 600 * pip;
 let tp3 = op === 'buy' ? harga + 100 * pip : harga - 1000 * pip;
 
-let decimalPlaces = pair.toLowerCase() === "xauusd" ? 2 : 3;
+let decimalPlaces = pair.toLowerCase() === "xauusd" ? 2 : 4;
 
 let format = harga.toFixed(decimalPlaces);
 let hFormat = h.toFixed(decimalPlaces);
@@ -77,6 +77,7 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
