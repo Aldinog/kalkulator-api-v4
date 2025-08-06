@@ -33,13 +33,28 @@ function calculatePips(pair, op, harga) {
 
 const pip = pipValues[pair.toLowerCase()] || 0.0001;
 let entry = harga;
-let h = op === 'buy' ? harga - 200 * pip : harga + 200 * pip;
-let sl = op === 'buy' ? harga - 350 * pip : harga + 350 * pip;
-let tp1 = op === 'buy' ? harga + 200 * pip : harga - 200 * pip;
-let tp2 = op === 'buy' ? harga + 600 * pip : harga - 600 * pip;
-let tp3 = op === 'buy' ? harga + 100 * pip : harga - 1000 * pip;
+let h = op === 'buy' ? harga - 20 * pip : harga + 20 * pip;
+let sl = op === 'buy' ? harga - 35 * pip : harga + 35 * pip;
+let tp1 = op === 'buy' ? harga + 20 * pip : harga - 20 * pip;
+let tp2 = op === 'buy' ? harga + 60 * pip : harga - 60 * pip;
+let tp3 = op === 'buy' ? harga + 10 * pip : harga - 100 * pip;
 
-let decimalPlaces = pair.toLowerCase() === "xauusd" ? 2 : 4;
+let pairLower = pair.toLowerCase();
+
+let decimalPlaces = 4; // default
+
+if (pairLower === "xauusd") {
+  decimalPlaces = 2;
+} else if (
+  pairLower === "gbpjpy" ||
+  pairLower === "eurjpy" ||
+  pairLower === "audjpy" ||
+  pairLower === "nzdjpy" ||
+  pairLower === "usdjpy"
+) {
+  decimalPlaces = 3;
+}
+
 
 let format = harga.toFixed(decimalPlaces);
 let hFormat = h.toFixed(decimalPlaces);
@@ -77,6 +92,7 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
