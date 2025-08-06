@@ -53,6 +53,7 @@ if (pairLower === "xauusd") {
   pairLower === "usdjpy"
 ) {
   decimalPlaces = 3;
+  const pip = 0.01;
 }//else if (
 //   pairLower === "gbpjpy" ||
 //   // pairLower === "eurjpy" ||
@@ -98,6 +99,7 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
