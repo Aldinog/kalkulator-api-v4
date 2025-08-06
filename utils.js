@@ -18,7 +18,7 @@ function calculatePips(pair, op, harga) {
   if (pairLower.includes("jpy")) {
     pip = 0.01; // Perhitungan pip JPY benar
   } else if (pairLower === "xauusd") {
-    pip = 0.1; // Gold = 0.1 pip untuk 1 tick
+    pip = 0.01; // Gold = 0.1 pip untuk 1 tick
   }
 
   const entry = harga;
@@ -65,4 +65,5 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
