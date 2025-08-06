@@ -26,7 +26,7 @@ function calculatePips(pair, op, harga) {
   const sl = op === 'buy' ? harga - 35 * pip : harga + 35 * pip;
   const tp1 = op === 'buy' ? harga + 20 * pip : harga - 20 * pip;
   const tp2 = op === 'buy' ? harga + 60 * pip : harga - 60 * pip;
-  const tp3 = op === 'buy' ? harga + 10 * pip : harga - 100 * pip;
+  const tp3 = op === 'buy' ? harga + 100 * pip : harga - 100 * pip;
 
   // Format output sesuai decimalPlaces
   const format = entry.toFixed(decimalPlaces);
@@ -65,3 +65,4 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
