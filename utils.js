@@ -6,17 +6,16 @@ function calculatePips(pair, op, harga) {
   const pairLower = pair.toLowerCase();
 
   // Tentukan jumlah angka di belakang koma
-  let decimalPlaces = 4;
+  let decimalPlaces = 5;
   if (pairLower.includes("jpy")) {
     decimalPlaces = 3; // Output 3 angka koma untuk JPY
   } else if (pairLower === "xauusd") {
     decimalPlaces = 2;
-  } else if (pairLower.includes("cad")) {
-    decimalPlaces = 5;
-  }
-
+  // } else if (pairLower.includes("cad")) {
+  //   decimalPlaces = 5;
+  // } 
   // Tentukan nilai pip yang benar untuk perhitungan
-  let pip = 0.0001;
+  let pip = 0.00010;
   if (pairLower.includes("jpy")) {
     pip = 0.01; // Perhitungan pip JPY benar
   } else if (pairLower === "xauusd") {
@@ -67,6 +66,7 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
