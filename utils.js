@@ -11,9 +11,7 @@ function calculatePips(pair, op, harga) {
     decimalPlaces = 3; // Output 3 angka koma untuk JPY
   } else if (pairLower === "xauusd") {
     decimalPlaces = 2;
-  // } else if (pairLower.includes("cad")) {
-  //   decimalPlaces = 5;
-  // } 
+   } 
   // Tentukan nilai pip yang benar untuk perhitungan
   let pip = 0.00010;
   if (pairLower.includes("jpy")) {
@@ -66,6 +64,7 @@ async function sendTelegramMessage(msg) {
 }
 
 module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
