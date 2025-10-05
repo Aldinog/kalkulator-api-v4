@@ -47,23 +47,40 @@ async function sendTelegramMessage(msg) {
     return;
   }
 
+  // Jika ada beberapa chat_id, pisahkan dengan koma
+  const chatIds = CHAT_ID.split(",").map(id => id.trim());
+
   const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-  try {
-    await fetch(url, {
+
+  // Buat semua request dalam array promise
+  const requests = chatIds.map(id => 
+    fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: CHAT_ID,
+        chat_id: id,
         text: msg,
         parse_mode: "Markdown"
       })
-    });
-  } catch (err) {
-    console.error("Telegram error:", err.message);
-  }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        console.log(`✅ Pesan terkirim ke chat ID ${id}`);
+      } else {
+        console.error(`⚠️ Gagal kirim ke ${id}:`, data.description);
+      }
+    })
+    .catch(err => console.error(`❌ Error kirim ke ${id}:`, err.message))
+  );
+
+  // Jalankan semua request secara paralel
+  await Promise.all(requests);
+
+  console.log("📤 Semua pesan telah diproses.");
 }
 
-module.exports = { calculatePips, sendTelegramMessage };
+
 
 
 
